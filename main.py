@@ -1,8 +1,12 @@
 import itertools
 
 def ObtenerDatos():
-    """Obtiene por input la matriz de costo, retorna una tupla con el conjunto
-    de ciudades y la matriz"""
+    """Obtiene los datos necesarios por input
+    
+    return: tuple(ciudades, matriz)
+    list ciudades: lista de ciudades
+    list[] matriz: lista de las filas (lista) de la matriz de costo
+    """
     return ([1,2,3],[[1, 2, 33, 3], [1, 2, 33, 4], [1, 2, 33, 4]])
     largo_matriz = int(input("INGRESE N CIDADES: "))
     filas_matriz = []
