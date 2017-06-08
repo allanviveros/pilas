@@ -7,7 +7,6 @@ def ObtenerDatos():
     list ciudades: lista de ciudades
     list[] matriz: lista de las filas (lista) de la matriz de costo
     """
-    return ([1,2,3],[[1, 2, 33, 3], [1, 2, 33, 4], [1, 2, 33, 4]])
     largo_matriz = int(input("INGRESE N CIDADES: "))
     filas_matriz = []
     print("INSERTE DISTANCIAS: ")
@@ -43,11 +42,30 @@ def Subconjuntos(conjunto):
         #print(sub)
     return total_sub
 
-     
-matriz = ObtenerDatos()
+def CalcularRuta(data):
+    nodo_ir = data[0]
+    conj = data[1]
+    llave = str(nodo_ir)+"/"+str(conj)
+    if llave in valores_guardados:
+        costo = valores_guardados[llave]
+        print("hecho por diccionario")
+    else:
+        costo = matriz[nodo_inicial][nodo_ir]
+        print(costo)
+        print("hecho por matriz")
+    valores_guardados[llave] = costo
+    print(valores_guardados)
+
+nodo_inicial = 0    
+matriz = [[0, 1, 15, 6], [2, 0, 7, 3], [9, 6, 0, 12],[10, 4, 8, 0]]
+conjunto_ciudades = [1,2,3]
 #print(matriz[0])
-subconjuntos = Subconjuntos(matriz[0])
-print(subconjuntos)
+subconjuntos = Subconjuntos(conjunto_ciudades)
+valores_guardados = {'2/()': 15}
+
+#print(subconjuntos)
+
+CalcularRuta([2,()])
 """
 for i in subconjuntos:
     print(len(i))
