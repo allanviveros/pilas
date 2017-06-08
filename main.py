@@ -18,12 +18,46 @@ def ObtenerDatos():
     cjn_ciudades = list(range(1, largo_matriz))
     return (cjn_ciudades, filas_matriz)
 
+"""
 def Subconjuntos(conjunto):
     total_sub = []
     for i in range(0, len(conjunto)+1):
         total_sub += list(itertools.combinations(conjunto, i))
     return total_sub
-        
+
+"""
+
+def Subconjuntos(conjunto):
+    total_sub = []
+    for i in range(0, len(conjunto)+1):
+        if i == len(conjunto):
+            #print("aqui va el 0")
+            total_sub.append([0,tuple(conjunto)])
+            break
+        sub = list(itertools.combinations(conjunto, i))
+        for j in sub:
+            for m in conjunto:
+                if m not in j:
+                    total_sub.append([m,j])
+                    #print(total_sub)
+        #print(sub)
+    return total_sub
+
+     
 matriz = ObtenerDatos()
-print(matriz[0])
-Subconjuntos(matriz[0])
+#print(matriz[0])
+subconjuntos = Subconjuntos(matriz[0])
+print(subconjuntos)
+"""
+for i in subconjuntos:
+    print(len(i))
+    if len(i) == 1:
+        print(i[0])
+        print('')
+    elif len(i) == 2:
+        print(str(i[0])+' '+str(i[1]))
+        print('')
+    else:
+        print(i)
+        print('')
+        """
