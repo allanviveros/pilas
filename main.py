@@ -36,11 +36,42 @@ def Subconjuntos(conjunto):
     return total_sub
 
 def RutaOptima(ruta,nodo_final):
-    print("**"+str(Llave([ruta[0],ruta[1:]]))+" "+str(Llave(ruta) in valores_guardados))
+    #print("**"+str(Llave([ruta[0],ruta[1:]]))+" "+str(Llave(ruta) in valores_guardados))
     if Llave([ruta[0],ruta[1:]]) in valores_guardados:
         return True
     return False
 
+def ReducirDiccionario(nodo):
+    pass
+
+def ObtenerSolucion(ultimo):
+    largo_string = len(ultimo)
+    resultado = []
+    resultado.append(nodo_inicial)
+    data = valores_guardados[ultimo]
+    costo_total = data[0]
+    resultado.append(data[1])
+    largo_string -= 3
+    print(len(conjunto_ciudades) + 1)
+
+    #print(ultimo)
+    #print(largo_string)
+    while len(resultado) != len(conjunto_ciudades) + 1:
+        for llaves, valor in valores_guardados.items():
+            #print(llaves)
+            ##print(largo_string)
+            if len(llaves) == largo_string and valor[1] not in resultado:
+                print(llaves)
+                print(llaves[-2])
+                resultado.append(int(llaves[-2]))
+                largo_string -=3
+                #break
+                #print()
+        
+    resultado.append(nodo_inicial)
+    print(resultado)
+    
+            
 
 def Permutaciones(ruta):
     nodo_final = ruta[0]
@@ -54,16 +85,16 @@ def Permutaciones(ruta):
         #if len(conjunto) == 1:
         #    nodo_ant = conjunto[0]
         costo, nodo_ant = CalcularCostoRuta(ruta)
-        print(costo)
+        #print(costo)
         Guardar(ruta,costo,nodo_ant)
     else:
         rutas_posibles = []
         permutaciones_rutas = list(itertools.permutations(conjunto))
-        print(permutaciones_rutas) #[(),()]
+        #print(permutaciones_rutas) #[(),()]
         for rutas in permutaciones_rutas:
             if RutaOptima(list(rutas),nodo_final):
                 rutas_posibles.append(rutas)
-        print("rutas pos: "+str(rutas_posibles))
+        #print("rutas pos: "+str(rutas_posibles))
         for ruta in rutas_posibles:
             #print("** "+str(ruta))
             costo, nodo_ant = CalcularCostoRuta([nodo_final, list(ruta)])
@@ -113,8 +144,8 @@ def CalcularCostoRuta(ruta):
         return (costo + data_guardada[0], lista_nodos[0])
     else:
         print("algo salio mal")
-        print(Llave(ruta_previa))
-        print(valores_guardados)
+        #print(Llave(ruta_previa))
+        #print(valores_guardados)
 
 nodo_inicial = 0
 matriz = [[0, 1, 15, 6], [2, 0, 7, 3], [9, 6, 0, 12],[10, 4, 8, 0]]
@@ -144,9 +175,16 @@ print(valores_guardados)
 """
 
 for i in range(0,len(subconjuntos)):
-    if len(subconjuntos[i][1]) == 3:
+    if len(subconjuntos[i][1]) == len(subconjuntos[-1][1]):
+        #print()
         #break
+        ultimo = Llave(subconjuntos[i])
+        #print("aqui esta "+ultimo)
         pass
-    print("* "+str(subconjuntos[i]))
+    #print("* "+str(subconjuntos[i]))
     Permutaciones(subconjuntos[i])
-    print(valores_guardados)
+print(valores_guardados)
+
+ObtenerSolucion(ultimo)
+
+
