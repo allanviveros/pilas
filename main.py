@@ -35,6 +35,13 @@ def Subconjuntos(conjunto):
                     total_sub.append([m,list(j)])
     return total_sub
 
+def RutaOptima(ruta,nodo_final):
+    print("**"+str(Llave([ruta[0],ruta[1:]]))+" "+str(Llave(ruta) in valores_guardados))
+    if Llave([ruta[0],ruta[1:]]) in valores_guardados:
+        return True
+    return False
+
+
 def Permutaciones(ruta):
     nodo_final = ruta[0]
     conjunto = ruta[1]
@@ -50,18 +57,24 @@ def Permutaciones(ruta):
         print(costo)
         Guardar(ruta,costo,nodo_ant)
     else:
+        rutas_posibles = []
         permutaciones_rutas = list(itertools.permutations(conjunto))
-        #print(permutaciones_rutas) #[(),()]
-        for ruta in permutaciones_rutas:
-            print("** "+str(ruta))
+        print(permutaciones_rutas) #[(),()]
+        for rutas in permutaciones_rutas:
+            if RutaOptima(list(rutas),nodo_final):
+                rutas_posibles.append(rutas)
+        print("rutas pos: "+str(rutas_posibles))
+        for ruta in rutas_posibles:
+            #print("** "+str(ruta))
             costo, nodo_ant = CalcularCostoRuta([nodo_final, list(ruta)])
             lista_nodos_ant.append(nodo_ant)
             lista_costo.append(costo)
             lista_rutas.append(ruta)
         minimo = min(lista_costo)
         indice_minimo = lista_costo.index(minimo)
-        print("-"+str(lista_rutas[indice_minimo]))
-        Guardar(lista_rutas[indice_minimo], lista_costo[indice_minimo],lista_nodos_ant[indice_minimo])
+        #print("-"+str(conjunto))
+        #print("--"+str(Llave(conjunto)))
+        Guardar([nodo_final,conjunto], lista_costo[indice_minimo],lista_nodos_ant[indice_minimo])
 
 def Llave(ruta):
     return str(ruta[0])+"/"+str(ruta[1])
@@ -81,6 +94,7 @@ def Cargar(ruta):
         #print(valores_guardados)
         #CalcularCostoRuta(lista_nodos[0],lista_nodos[1:])
         return (False, 0)
+
 
 
 def CalcularCostoRuta(ruta):
@@ -131,7 +145,8 @@ print(valores_guardados)
 
 for i in range(0,len(subconjuntos)):
     if len(subconjuntos[i][1]) == 3:
-        break
+        #break
+        pass
     print("* "+str(subconjuntos[i]))
     Permutaciones(subconjuntos[i])
-print(valores_guardados)
+    print(valores_guardados)
