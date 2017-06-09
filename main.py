@@ -52,19 +52,34 @@ def ObtenerSolucion(ultimo):
     costo_total = data[0]
     resultado.append(data[1])
     largo_string -= 3
-    print(len(conjunto_ciudades) + 1)
+    #print(len(conjunto_ciudades) + 1)
 
     #print(ultimo)
     #print(largo_string)
+    costo_min = []
+    nodo_min = []
     while len(resultado) != len(conjunto_ciudades) + 1:
         for llaves, valor in valores_guardados.items():
+            
             #print(llaves)
             ##print(largo_string)
             if len(llaves) == largo_string and valor[1] not in resultado:
-                print(llaves)
-                print(llaves[-2])
-                resultado.append(int(llaves[-2]))
-                largo_string -=3
+                #print(llaves)
+                #print(llaves[-2])
+                valor_min = valor[0]
+                nodo_minimo = llaves[-2]
+                costo_min.append(int(valor_min))
+                nodo_min.append(nodo_minimo)
+                #resultado.append(int(llaves[-2]))
+        print(costo_min)
+        print(nodo_min)
+        
+        indice_min = costo_min.index(min(costo_min))
+        print(indice_min)
+        print(nodo_min[indice_min])
+        print('')
+        resultado.append(int(nodo_min[indice_min]))
+        largo_string -=3
                 #break
                 #print()
         
@@ -94,7 +109,7 @@ def Permutaciones(ruta):
         for rutas in permutaciones_rutas:
             if RutaOptima(list(rutas),nodo_final):
                 rutas_posibles.append(rutas)
-        #print("rutas pos: "+str(rutas_posibles))
+        print("rutas pos: "+str(rutas_posibles))
         for ruta in rutas_posibles:
             #print("** "+str(ruta))
             costo, nodo_ant = CalcularCostoRuta([nodo_final, list(ruta)])
@@ -148,8 +163,24 @@ def CalcularCostoRuta(ruta):
         #print(valores_guardados)
 
 nodo_inicial = 0
+"""
 matriz = [[0, 1, 15, 6], [2, 0, 7, 3], [9, 6, 0, 12],[10, 4, 8, 0]]
 conjunto_ciudades = set([1,2,3])
+"""
+""""
+matriz = [[0, 119, 15, 64, 17], [119, 0, 12, 19, 122], [15, 12, 0, 47, 23],[64, 19, 47, 0, 115],[17, 122, 23, 115, 0]]
+conjunto_ciudades = set([1,2,3,4])
+"""
+"""
+0 119 15 64 17
+119 0 12 19 122
+15 12 0 47 23
+64 19 47 0 115
+17 122 23 115 0
+"""
+
+conjunto_ciudades, matriz = ObtenerDatos()
+
 
 #CostoRuta(nodo_inicial,set([1,2]))
 
@@ -179,6 +210,7 @@ for i in range(0,len(subconjuntos)):
         #print()
         #break
         ultimo = Llave(subconjuntos[i])
+        print(subconjuntos[i])
         #print("aqui esta "+ultimo)
         pass
     #print("* "+str(subconjuntos[i]))
